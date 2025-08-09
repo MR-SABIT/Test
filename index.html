@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src='//libtl.com/sdk.js' data-zone='9690023' data-sdk='show_9690023'></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auto MoneTag Ads Reward System</title>
+  <style>
+    /* [  CSS  ] */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+    /* ... (CSS    ) ... */
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e1e1e1;
+      font-family: 'Montserrat', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .login-container, .container {
+      background: rgba(30, 39, 51, 0.95);
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      width: 360px;
+      text-align: center;
+      transform: scale(0.9);
+      opacity: 0;
+      animation: fadeInScale 0.7s forwards ease-in-out;
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h2, h1 {
+      color: #ffd700;
+      margin-bottom: 25px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 10px #ffd700aa;
+    }
+
+    /* Inputs and selects */
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: none;
+      background-color: #1e2733;
+      color: #f1f1f1;
+      font-size: 15px;
+      transition: background-color 0.3s ease;
+      box-shadow: inset 0 0 5px #000000aa;
+      font-weight: 500;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      background-color: #2a3a53;
+      box-shadow: 0 0 8px #ffd700aa;
+    }
+
+    /* Buttons */
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+      transition: all 0.3s ease;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    /* Specific buttons */
+    .login-container button {
+      background: linear-gradient(135deg, #ffd700, #ffa500);
+      color: #000;
+    }
+    .login-container button:hover {
+      background: linear-gradient(135deg, #ffca28, #ff9800);
+      box-shadow: 0 6px 20px #ffb300cc;
+      transform: translateY(-4px);
+    }
+
+    #watch-ad-btn {
+      background: linear-gradient(45deg, #ffd700, #ffb300);
+      color: #000;
+      box-shadow: 0 4px 12px #ffb300aa;
+    }
+    #watch-ad-btn:hover {
+      background: linear-gradient(45deg, #ffca28, #ff9800);
+      box-shadow: 0 6px 20px #ffb300cc;
+      transform: translateY(-5px);
+    }
+
+    #watch-video-btn {
+      background: linear-gradient(45deg, #e53935, #b71c1c);
+      color: #fff;
+      box-shadow: 0 4px 12px #b71c1ccc;
+    }
+    #watch-video-btn:hover {
+      background: linear-gradient(45deg, #ef5350, #d32f2f);
+      box-shadow: 0 6px 20px #d32f2fcc;
+      transform: translateY(-5px);
+    }
+
+    #auto-ad-btn {
+      background: linear-gradient(45deg, #43a047, #1b5e20);
+      color: #fff;
+      box-shadow: 0 4px 12px #1b5e20cc;
+    }
+    #auto-ad-btn:hover {
+      background: linear-gradient(45deg, #66bb6a, #2e7d32);
+      box-shadow: 0 6px 20px #2e7d32cc;
+      transform: translateY(-5px);
+    }
+
+    #stop-auto-btn {
+      background: linear-gradient(45deg, #e53935, #b71c1c);
+      color: #fff;
+      box-shadow: 0 4px 12px #b71c1ccc;
+    }
+    #stop-auto-btn:hover {
+      background: linear-gradient(45deg, #ef5350, #d32f2f);
+      box-shadow: 0 6px 20px #d32f2fcc;
+      transform: translateY(-5px);
+    }
+
+    .buttons button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* Developer badge */
+    .developer {
+      font-size: 13px;
+      background: linear-gradient(90deg, #4caf50, #81c784);
+      padding: 6px 14px;
+      border-radius: 30px;
+      color: white;
+      display: inline-block;
+      margin-bottom: 20px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      box-shadow: 0 3px 8px rgba(76, 175, 80, 0.7);
+      user-select: none;
+    }
+
+    /* Stats */
+    .stats p {
+      margin: 8px 0;
+      font-size: 15px;
+      color: #ffd700;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* Progress circle */
+    .progress-circle {
+      width: 90px;
+      height: 90px;
+      border: 5px solid #ffd700;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto 25px auto;
+      box-shadow: 0 0 15px #ffd700aa;
+      user-select: none;
+    }
+    .progress-circle span {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffd700;
+      letter-spacing: 0.1em;
+    }
+
+    /* Withdraw section */
+    .withdraw-section {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #1e2733;
+      border-radius: 12px;
+      border: 1px solid #333;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.6s ease, max-height 0.6s ease;
+      user-select: none;
+    }
+    .withdraw-section.show {
+      opacity: 1;
+      max-height: 500px;
+      overflow: visible;
+    }
+    .withdraw-section h3 {
+      color: #ffd700;
+      margin-bottom: 15px;
+      font-size: 20px;
+      text-shadow: 0 0 6px #ffd700;
+      font-weight: 600;
+    }
+    .withdraw-section button {
+      background: linear-gradient(45deg, #ffd700, #4caf50);
+      color: #000;
+      font-weight: 700;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px #4caf50aa;
+      transition: background 0.4s ease, color 0.4s ease;
+      margin-top: 10px;
+    }
+    .withdraw-section button:hover {
+      background: linear-gradient(45deg, #4caf50, #ffd700);
+      color: #fff;
+      box-shadow: 0 6px 20px #4caf50cc;
+    }
+
+    #withdraw-status {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #ffd700;
+      min-height: 24px;
+      font-weight: 700;
+      text-shadow: 0 0 5px #ffd700;
+      user-select: none;
+    }
+
+    /* Video container */
+    #video-container {
+      margin: 15px auto 0 auto;
+      width: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #ff0000aa;
+    }
+    #video-container iframe {
+      width: 100%;
+      height: 158px;
+      border: none;
+      display: block;
+    }
+    #video-container p {
+      margin: 8px 0 0 0;
+      color: #ffd700;
+      font-size: 13px;
+      text-align: center;
+      user-select: none;
+      font-weight: 600;
+      text-shadow: 0 0 5px #ffd700aa;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .login-container, .container {
+        width: 90vw;
+        padding: 25px 20px;
+      }
+      #video-container {
+        width: 90vw;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Section -->
+  <div class="login-container" id="login-section">
+    <h2>Login</h2>
+    <input type="text" id="username-input" placeholder="Enter Telegram Username (e.g. @user)" autocomplete="off" />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" id="main-section" style="display:none;">
+    <h1>Auto MoneTag Ads</h1>
+    <div class="developer">Developer by MR SABIT</div>
+    <p>Welcome, <span id="user-name"></span></p>
+    <div class="stats">
+      <p>Watched Ads: <span id="watched-ads">0</span></p>
+      <p>Earned Points: <span id="earned-points">0.00</span></p>
+    </div>
+    <div class="progress-circle">
+      <span id="ads-progress">0%</span>
+    </div>
+    <div class="buttons">
+      <button id="watch-ad-btn" onclick="watchAd()">Watch Ad</button>
+      <button id="watch-video-btn" onclick="watchVideo()"> YouTube Video Watch</button>
+      <button id="auto-ad-btn" onclick="startAutoAds()">Auto Show Ads</button>
+      <button id="stop-auto-btn" onclick="stopAutoAds()" disabled>Stop Auto Ads</button>
+      <button onclick="showWithdrawForm()">Withdrawal Request</button>
+    </div>
+    <div id="video-container" style="display:none;">
+      <iframe src="" allowfullscreen></iframe>
+      <p>Watch full video to earn 1 point</p>
+    </div>
+    <div id="withdraw-section" class="withdraw-section">
+      <h3>Withdrawal</h3>
+      <input type="number" id="withdraw-amount" placeholder="Enter points to withdraw" min="5" />
+      <select id="payment-method">
+        <option value="Bkash">Bkash</option>
+        <option value="Nagad">Nagad</option>
+        <option value="Manual">Manual Withdraw</option>
+      </select>
+      <input type="text" id="withdraw-phone" placeholder="Enter phone number" autocomplete="off" />
+      <button onclick="withdrawPoints()">Withdraw</button>
+      <p id="withdraw-status"></p>
+    </div>
+  </div>
+
+<script>
+  const MIN_WITHDRAW_POINTS = 5;
+  const ADMIN_USER_ID = "6310115276";
+  const BOT_TOKEN = "8138139117:AAFNy1MsZblyX7caowMKClUiINav4jm15LI";
+  const YOUTUBE_VIDEOS = [
+    "https://www.youtube.com/embed/kGZ0ZcZWtCg"
+  ];
+  let watchedAdsCount = 0;
+  let earnedPoints = 0.00;
+  let autoAdInterval;
+  let currentVideo = null;
+
+  window.onload = function(){
+    const savedUser = localStorage.getItem("telegramUser");
+    if(savedUser){
+      showMain(savedUser);
+    }
+  }
+
+  function login(){
+    const username = document.getElementById("username-input").value.trim();
+    if(username === "" || !username.startsWith("@")){
+      alert("Please enter a valid Telegram username starting with @");
+      return;
+    }
+    localStorage.setItem("telegramUser", username);
+    showMain(username);
+  }
+
+  function showMain(username){
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("main-section").style.display = "block";
+    document.getElementById("user-name").textContent = username;
+  }
+
+  function watchAd(){
+    watchedAdsCount++;
+    earnedPoints += 0.50;
+    updateStats();
+  }
+
+  function watchVideo(){
+    const videoContainer = document.getElementById('video-container');
+    const iframe = videoContainer.querySelector('iframe');
+    const randomVideo = YOUTUBE_VIDEOS[Math.floor(Math.random() * YOUTUBE_VIDEOS.length)];
+    iframe.src = randomVideo + "?autoplay=1";
+    videoContainer.style.display = 'block';
+    currentVideo = { startTime: Date.now(), watched: false };
+
+    const videoCheckInterval = setInterval(() => {
+      if (!currentVideo.watched) {
+        const timeWatched = (Date.now() - currentVideo.startTime) / 1000;
+        if (timeWatched >= 120) {
+          currentVideo.watched = true;
+          earnedPoints += 1.00;
+          updateStats();
+          alert('You earned 1 point for watching the full video!');
+          clearInterval(videoCheckInterval);
+        }
+      } else {
+        clearInterval(videoCheckInterval);
+      }
+    }, 1000);
+  }
+
+  function startAutoAds(){
+    autoAdInterval = setInterval(watchAd, 5000);
+    document.getElementById('auto-ad-btn').disabled = true;
+    document.getElementById('stop-auto-btn').disabled = false;
+  }
+
+  function stopAutoAds(){
+    clearInterval(autoAdInterval);
+    document.getElementById('auto-ad-btn').disabled = false;
+    document.getElementById('stop-auto-btn').disabled = true;
+  }
+
+  function updateStats(){
+    document.getElementById('watched-ads').textContent = watchedAdsCount;
+    document.getElementById('earned-points').textContent = earnedPoints.toFixed(2);
+    const progressPercent = Math.min(100, Math.floor((watchedAdsCount / 100) * 100));
+    document.getElementById('ads-progress').textContent = progressPercent + '%';
+  }
+
+  function showWithdrawForm(){
+    document.getElementById('withdraw-section').classList.add('show');
+    document.getElementById('video-container').style.display = 'none';
+  }
+
+  function withdrawPoints(){
+    const amount = parseFloat(document.getElementById('withdraw-amount').value);
+    const method = document.getElementById('payment-method').value;
+    const phone = document.getElementById('withdraw-phone').value.trim();
+    const username = localStorage.getItem("telegramUser");
+
+    if(isNaN(amount) || amount < MIN_WITHDRAW_POINTS){
+      document.getElementById('withdraw-status').textContent = `Minimum withdrawal amount is ${MIN_WITHDRAW_POINTS} points.`;
+      return;
+    }
+    if(amount > earnedPoints){
+      document.getElementById('withdraw-status').textContent = `Insufficient balance. You have ${earnedPoints.toFixed(2)} points.`;
+      return;
+    }
+    if(phone.length < 6){
+      document.getElementById('withdraw-status').textContent = `Please enter a valid phone number.`;
+      return;
+    }
+
+    earnedPoints -= amount;
+    updateStats();
+
+    const msg = ` *Withdraw Request* \n User: ${username}\n Points: ${amount}\n Method: ${method}\n Number: ${phone}`;
+    sendTelegram(msg);
+
+    document.getElementById('withdraw-status').textContent = ' Withdrawal request sent successfully!';
+  }
+
+  function sendTelegram(message){
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: ADMIN_USER_ID,
+        text: message,
+        parse_mode: "Markdown"
+      })
+    })
+    .catch(err => console.error('Telegram API error:', err));
+  }
+</script>
+
+</body>
+</html>
