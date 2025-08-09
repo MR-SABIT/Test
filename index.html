@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src='//libtl.com/sdk.js' data-zone='9690023' data-sdk='show_9690023'></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Auto MoneTag Ads Reward System</title>
   <style>
-    /* [  CSS  ] */
+    /* [আপনার আগের CSS এখানে থাকবে] */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-    /* ... (CSS    ) ... */
-    /* Reset & base */
+    /* ... (CSS কোড আগের মতো থাকবে) ... */
+        /* Reset & base */
     * {
       box-sizing: border-box;
     }
@@ -318,7 +317,7 @@
     </div>
     <div class="buttons">
       <button id="watch-ad-btn" onclick="watchAd()">Watch Ad</button>
-      <button id="watch-video-btn" onclick="watchVideo()"> YouTube Video Watch</button>
+      <button id="watch-video-btn" onclick="watchVideo()">💰 YouTube Video Watch</button>
       <button id="auto-ad-btn" onclick="startAutoAds()">Auto Show Ads</button>
       <button id="stop-auto-btn" onclick="stopAutoAds()" disabled>Stop Auto Ads</button>
       <button onclick="showWithdrawForm()">Withdrawal Request</button>
@@ -406,17 +405,16 @@
     }, 1000);
   }
 
-  function startAutoAds(){
-    autoAdInterval = setInterval(watchAd, 5000);
-    document.getElementById('auto-ad-btn').disabled = true;
-    document.getElementById('stop-auto-btn').disabled = false;
-  }
-
-  function stopAutoAds(){
-    clearInterval(autoAdInterval);
-    document.getElementById('auto-ad-btn').disabled = false;
-    document.getElementById('stop-auto-btn').disabled = true;
-  }
+  function watchAd() {
+      if (typeof show_9690023 === 'function') {
+        show_9690023().then(() => {
+          watchedAdsCount++;
+          earnedPoints += 0.50;
+          updateStats();
+          updateProgressCircle();
+        });
+      }
+    }
 
   function updateStats(){
     document.getElementById('watched-ads').textContent = watchedAdsCount;
@@ -452,10 +450,10 @@
     earnedPoints -= amount;
     updateStats();
 
-    const msg = ` *Withdraw Request* \n User: ${username}\n Points: ${amount}\n Method: ${method}\n Number: ${phone}`;
+    const msg = `🟡 *Withdraw Request* 🟡\n👤 User: ${username}\n💰 Points: ${amount}\n📱 Method: ${method}\n📞 Number: ${phone}`;
     sendTelegram(msg);
 
-    document.getElementById('withdraw-status').textContent = ' Withdrawal request sent successfully!';
+    document.getElementById('withdraw-status').textContent = '✅ Withdrawal request sent successfully!';
   }
 
   function sendTelegram(message){
